@@ -1,22 +1,22 @@
-import streamlit as st
 import cv2
+import streamlit as st
 
-# Initialize the camera
-camera = cv2.VideoCapture(0)
-
-# Create a button to capture an image
-st.button("Capture Image")
-
-# If the button is clicked, capture an image and display it
-if st.button_clicked("Capture Image"):
+def capture_image():
     # Capture an image from the camera
+    camera = cv2.VideoCapture(0)
     ret, frame = camera.read()
+    camera.release()
 
-    # Convert the image to a NumPy array
-    image = frame.astype(np.uint8)
+    # Display the image in the Streamlit app
+    st.image(frame)
 
-    # Display the image
-    st.image(image)
+if __name__ == "__main__":
+    # Title of the app
+    st.title("Capture Image from Camera")
 
-# Close the camera
-camera.release()
+    # Button to capture an image
+    button = st.button("Capture Image")
+
+    # If the button is clicked, capture an image and display it in the app
+    if button:
+        capture_image()
